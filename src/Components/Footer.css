@@ -1,0 +1,42 @@
+.footer{
+    padding-top: 70px;
+    padding-bottom: 30px;
+}
+
+.footer .logo img{
+    width: 50%;
+    margin-bottom: 1rem;
+}
+
+.logo p{
+    font-family: cursive;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-style: italic;
+
+}
+
+.social_links span a{
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: black;
+}
+
+.footer_link-title{
+    margin-bottom: 1rem;
+}
+
+.footer_quick-links li a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: black;
+}
+
+.footer_quick-links h6 span i{
+    font-size: 1.1rem;
+}
+
+.copyright{
+    font-size: 1rem;
+    font-weight: 600;
+}

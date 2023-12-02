@@ -1,0 +1,138 @@
+.homemain-div{
+    /* background-image: url('/public/images/eveningimage.jpg'); */
+    background-size: cover;
+    background-position: center;
+}
+
+.customerslogan{
+    border: 1px solid white;
+    border-radius: 15px;
+    width: 30%;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.travel-quote{
+    word-spacing: 5px;
+    line-height: 30px;
+    font-family: cursive;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.service_subtitle{
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: #ee6e6e;
+    font-family: cursive;
+}
+
+.service_title{
+    font-size: 2.2rem;
+    font-weight: 500;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.service_item{
+    padding: 1rem;
+    border-bottom: 1px solid #faa83586;
+    border-right: 1px solid #faa83586;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.service_img{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.mb-8{
+    margin-bottom: 75px;
+}
+
+.featured_tour-title{
+    font-size: 2.3rem;
+    font-weight: 500;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.experience_content h2{
+    font-size: 2.5rem;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+.experience_content p{
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    color: saddlebrown;
+}
+
+.counter_wrapper{
+    margin-top: 2.5rem;
+}
+
+.counter_box span{
+    width: 70px;
+    height: 55px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 600;
+    border-radius: 10px 5px 10px 5px;
+}
+
+.counter_box h6{
+    font-size: 1.1rem;
+    margin-top: 0.7rem;
+}
+
+.experience_img img{
+    width: 90%;
+}
+
+.gallery_title{
+    font-size: 2.3rem;
+    margin-bottom: 2.5rem;
+    margin-top: 1rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.masonry_img{
+    transition: .3s;
+}
+
+.masonry_img:hover{
+    transform: scale(1.1);
+}
+
+.testimonial_title{
+    font-size: 2.3rem;
+    margin-top: 1rem;
+    font-family: cu;
+}
+
+.customer img{
+    border-radius: 50%;
+}
+
+.customer-review{
+    font-family: cursive;
+    font-weight: 600;
+    color: saddlebrown;
+    
+}

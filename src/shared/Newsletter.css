@@ -1,0 +1,54 @@
+.newsletter{
+    background-color: aliceblue;
+    padding: 0;
+    margin-top: 3rem;
+}
+
+.newsletter_img img{
+    width: 100%;
+}
+
+.newsletter_content{
+    padding: 50px 0;
+}
+
+.newsletter_content p{
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    color: saddlebrown;
+}
+
+.newsletter_content h2{
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.newsletter_input{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+}
+
+.newsletter_input input{
+    border: none;
+    font-size: 1rem;
+}
+
+.newsletter_input input:focus{
+    outline: none;
+}
+
+.newsletter_btn{
+    padding: 0.5rem 1.5rem !important;
+    font-size: 1.1rem !important;
+}
+
+.newsletter_content{
+    font-size: 1.1rem;
+}

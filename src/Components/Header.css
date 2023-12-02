@@ -1,0 +1,22 @@
+#nav-dropdown{
+    color: black;
+    width: 125px;
+    font-weight: bold;
+}
+
+.navbar-style{
+    width: 100%;
+    top: 0;
+    z-index: 1;
+}
+
+.sticky_header{
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    box-shadow: 3px 3px 8px -3px #ddd;
+}
