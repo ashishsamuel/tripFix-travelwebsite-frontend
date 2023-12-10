@@ -12,13 +12,10 @@ import UserProfile from '../Pages/UserProfile';
 import About from '../Pages/About';
 import TourdetailsupdatePage from '../Pages/TourdetailsupdatePage';
 import UserBookings from '../Pages/UserBookings';
-import { navigateLinkAuthorizationContext } from '../Contexts/NavigateLinkAuth';
 
 
 const Router = () => {
   const location = useLocation();
-  const {isAuthorized,setIsAuthorized} = useContext(navigateLinkAuthorizationContext)
-  console.log(isAuthorized);
 
    // Scroll to top if path changes
    useLayoutEffect(() => {
@@ -31,14 +28,14 @@ const Router = () => {
       <Routes>
         <Route path='/' element={<Navigate to='/home'/>}/>
         <Route path='/home' element={<Home/>}/>
-        <Route path='/tours' element={isAuthorized? <Tours/> : <Home/>}/>
-        <Route path='/tours/:id' element={isAuthorized?<TourDetails/>: <Home/>}/>
+        <Route path='/tours' element={<Tours/>}/>
+        <Route path='/tours/:id' element={<TourDetails/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/thank-you' element={<ThankYou/>}/>
         <Route path='/user-profile' element={<UserProfile/>}/>
         <Route path='/bookings' element={<UserBookings/>}/>
-        <Route path='/tours/search' element={isAuthorized? <SearchResultList/>:<Home/>}/>
+        <Route path='/tours/search' element={<SearchResultList/>}/>
         <Route path='/about' element={<About/>}></Route>
         <Route path='/tourdetails/edit' element={<TourdetailsupdatePage/>}></Route>
         <Route path='/*' element={<Navigate to={'/'}/>}></Route>

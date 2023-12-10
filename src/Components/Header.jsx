@@ -17,7 +17,7 @@ function Header() {
   const headerRef = useRef(null)
   const navigate = useNavigate()
   const {user, dispatch} = useContext(AuthContext)
-  const {isAuthorized,setIsAuthorized} = useContext(navigateLinkAuthorizationContext)
+  // const {isAuthorized,setIsAuthorized} = useContext(navigateLinkAuthorizationContext)
 
 
   const stickyHeaderFunc = ()=>{
@@ -38,7 +38,7 @@ function Header() {
     dispatch({type:'LOGOUT'})
     sessionStorage.removeItem("tourData")
     localStorage.removeItem('user')
-    setIsAuthorized(false)
+    // setIsAuthorized(false)
     navigate('/')
   }
 

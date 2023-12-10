@@ -14,7 +14,7 @@ function Login() {
 
   const navigate =useNavigate()
   const {dispatch} = useContext(AuthContext)
-  const {isAuthorized,setIsAuthorized} = useContext(navigateLinkAuthorizationContext)
+  // const {isAuthorized,setIsAuthorized} = useContext(navigateLinkAuthorizationContext)
 
 
   const [credentials,setCredentials] = useState({
@@ -48,7 +48,7 @@ function Login() {
 
 
       dispatch({type:"LOGIN_SUCCESS",payload:result.data})
-      setIsAuthorized(true)
+      // setIsAuthorized(true)
       navigate('/')
     } catch (err) {
         dispatch({type:"LOGIN_FAILURE",payload:err.message})
