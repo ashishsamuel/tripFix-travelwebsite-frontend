@@ -54,7 +54,7 @@ function Header() {
     <div className='header' ref={headerRef}>
        <Navbar expand="lg" className='navbar-style bg-light position-fixed'>
        <Container fluid className='mx-2 nav_wrapper' style={{display:'flex',justifyContent:'space-between'}}>
-         <Link to='/' className='logo'><img src="images/logo.png" alt="tripfix logo"/></Link>
+         <Link to='/' className='logo'><img src="images/logo.PNG" alt="tripfix logo"/></Link>
          <Navbar.Toggle aria-controls="basic-navbar-nav" />
          <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
            <Nav>
