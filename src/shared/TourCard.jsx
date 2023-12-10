@@ -5,7 +5,7 @@ import './TourCard.css'
 
 
 function TourCard({tour}) {
-    const {id,title,city,photo,price,featured,reviews,height} = tour
+    const {_id,title,city,photo,price,featured,reviews,height} = tour
 
     const totalRating = reviews?.reduce((acc,item)=>acc+item.rating,0)
     const avgRating = totalRating ===0?'':totalRating===1?totalRating:totalRating/reviews?.length
@@ -13,8 +13,7 @@ function TourCard({tour}) {
     <div className='tour_card'>
       <Card>
       <div className='tour_img'>
-        {/* <Card.Img variant="top" src="/images/eveningimage.jpg" alt='tour image'/> */}
-        <Card.Img variant="top" className='card-img' src={photo} height={height} alt='tour image'/>
+        <Card.Img variant="top" className='card-img' src={`/${photo}`} height={height} alt='tour image'/>
 
         {featured && <span className='bg-warning text-light featured rounded'>Featured</span>}
       </div>
@@ -30,12 +29,12 @@ function TourCard({tour}) {
         </div>
 
         <h5 className='tour_title'>
-            <Link to={`/tours/${id}`}>{title}</Link>
+            <Link to={`/tours/${_id}`}>{title}</Link>
         </h5>
         <div className="card_bottom d-flex align-items-center justify-content-between mt-3">
             <h5 className='text-warning'>${price}<span className='text-dark'>/per person</span></h5>
             <button className='btn btn-info booking_btn'>
-                <Link to={`/tours/${id}`}>Book Now</Link>
+                <Link to={`/tours/${_id}`}>Book Now</Link>
             </button>
 
         </div>

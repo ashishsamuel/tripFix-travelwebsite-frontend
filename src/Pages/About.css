@@ -1,0 +1,75 @@
+.about-maindiv{
+    color: black;
+}
+
+.transportation{
+    background-image: url('../Assets/aboutimages/transportation.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45vh;
+    /* opacity: 0.7; */
+}
+
+.accomodation{
+    background-image: url('../Assets/aboutimages/accomodation.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45vh;
+}
+
+.tour-guide{
+    background-image: url('../Assets/aboutimages/tourguide.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45vh;
+}
+
+.food{
+    background-image: url('../Assets/aboutimages/food.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45vh;
+}
+
+.workhow-img{
+    border-radius: 20px;
+    width: 200px;
+}
+
+.facility{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width:1200px){
+    .food{
+        height: 30vh;
+    }
+
+    .tour-guide{
+        height: 30vh;
+    }
+
+    .transportation{
+        height: 30vh;
+    }
+
+    .accomodation{
+        height: 30vh;
+    }
+}
+
+@media only screen and (max-width:576px){
+    .food{
+        width: 300px !important;
+    }
+}

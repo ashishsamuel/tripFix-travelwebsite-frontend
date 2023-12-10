@@ -1,26 +1,54 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './Login.css'
 import { Button, Col, Container, Form, FormGroup, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import registerImg from '../Assets/customerImages/register.png'
 import userIcon from '../Assets/customerImages/usericon.png'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {AuthContext} from '../Contexts/AuthContext.jsx'
+import { BASE_URL } from '../utils/config.js'
 
 
 function Register() {
+  const navigate =useNavigate()
 
   const [credentials,setCredentials] = useState({
-    username:undefined,
-    email:undefined,
-    password:undefined
-})
+    username:undefined,email:undefined,password:undefined
+  })
+
+  const {dispatch} = useContext(AuthContext)
+
   const handleChange = (e)=>{
-    setCredentials(prev=>({...prev,[e.target.id]:e.target.value}))
+    setCredentials(prev => ({...prev, [e.target.id]: e.target.value}))
   }
 
-  const handleClick = (e)=>{
+  const handleRegister = async (e)=>{
     e.preventDefault()
     
+    try {
+      const res = await fetch(`${BASE_URL}/auth/register`,{
+        method:"post",
+        headers:{
+          "content-type":"application/json"
+        },
+        body:JSON.stringify(credentials)
+      })
+      const result = await res.json()
+
+      if(!res.ok){
+        alert(result.message)
+      }
+
+      dispatch({type:"REGISTER_SUCCESS"})
+      navigate("/login")
+
+    } catch (err) {
+      alert(err.message)
+    }
+
   }
+
   return (
     <section>
       <Container>
@@ -38,12 +66,12 @@ function Register() {
 
                 <h2>Register</h2>
 
-                <Form onSubmit={handleClick}>
+                <Form onSubmit={handleRegister}>
                 <FormGroup className='mb-3'>
-                    <input type="text" required placeholder='Enter your Username' id="username" onChange={handleChange}/>
+                    <input type="text" placeholder='Enter your Username' id="username" onChange={handleChange}/>
                   </FormGroup>
                   <FormGroup className='mb-3'>
-                    <input type="email" required placeholder='Enter your Email' id="email" onChange={handleChange}/>
+                    <input type="text" required placeholder='Enter your Email' id="email" onChange={handleChange}/>
                   </FormGroup>
                   <FormGroup className='mb-3'>
                     <input type="password" required placeholder='Enter your password' id="password" onChange={handleChange}/>
@@ -55,6 +83,7 @@ function Register() {
             </div>
           </Col>
         </Row>
+      <ToastContainer position='top-right' theme='colored' autoClose='2000'/>
       </Container>
     </section>
   )

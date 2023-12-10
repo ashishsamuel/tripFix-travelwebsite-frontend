@@ -15,7 +15,7 @@ function ThankYou() {
                         <h3 className="mb-3 fw-semibold">Thank You</h3>
                         <h6 className="mb-4">Your tour is booked.</h6>
 
-                        <Button className='btn btn-warning w-25'><Link to={'/'} className='text-light fw-bold' style={{textDecoration:'none'}}>Back to Home</Link></Button>
+                        <Link to={'/'} className='text-light fw-bold' style={{textDecoration:'none'}}><Button className='btn btn-warning w-25'>Back to Home</Button></Link>
                     </span>
                   </div>
                 </Col>

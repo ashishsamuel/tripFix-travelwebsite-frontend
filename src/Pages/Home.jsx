@@ -1,26 +1,41 @@
 import React, { useRef } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import './Home.css'
-import Form from 'react-bootstrap/Form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FeaturedTours from '../Components/FeaturedTours';
 import MasonryImagesGallery from './MasonryImagesGallery';
 import Testimonial from '../Components/Testimonial';
 import Newsletter from '../shared/Newsletter';
+import { BASE_URL } from '../utils/config';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const locationRef = useRef('')
   const distanceRef = useRef(0)
   const maxGroupSizeRef = useRef(0)
+  const navigate = useNavigate()
 
-  const searchHandler =()=>{
-    const location = locationRef.current.value;
+  const searchHandler =async()=>{
+    const location = locationRef.current.value.replace(/\s/g, "");
     const distance = distanceRef.current.value;
     const maxGroupSize = maxGroupSizeRef.current.value;
 
     if(location === '' || distance === '' || maxGroupSize === ''){
       toast.warning("All fields are required!")
+    }
+  
+    const res = await fetch(`${BASE_URL}/tours/search/getTourBySearch?city=${location}&distance=${distance}&maxGroupSize=${maxGroupSize}`)
+
+    if(!res.ok){
+      alert("Something went wrong")
+    }
+
+    else{
+      const result = await res.json()
+
+    navigate(`/tours/search?city=
+    ${location}&distance=${distance}&maxGroupSize=${maxGroupSize}`,{state:result.data})
     }
   
   }
@@ -55,7 +70,7 @@ function Home() {
         <Container className='mb-8'>
           <Row>
             <Col sm={12} md={6} lg={5} xl={6} className="my-5">
-              <p className="customerslogan p-1 text-center bg-warning">
+              <p className="tripfixslogan p-1 text-center bg-warning">
                 Know Before You Go
               </p>
               <h3 className="mt-4">
@@ -71,7 +86,7 @@ function Home() {
                 something good behind.
               </p>
             </Col>
-            <Col sm={12} md={6} lg={7} xl={6} className="my-5">
+            <Col sm={12} md={6} lg={7} xl={6} className="homepage-image">
               <img
                 src="/images/travelimage4.jpeg"
                 style={{ borderRadius: "50%" }}
@@ -82,7 +97,7 @@ function Home() {
           </Row>
 
           <Row className="mt-5">
-            <Col sm={1} md={3} lg={3} xl={3} className="mt-4">
+            <Col sm={12} md={4} lg={3} xl={3} className="mt-4">
               <div>
                 <i class="fa-solid fa-location-dot"></i>
                 <span className="ms-2">Location</span>
@@ -96,7 +111,7 @@ function Home() {
                 />
               </div>
             </Col>
-            <Col sm={1} md={3} lg={3} xl={3} className="mt-4">
+            <Col sm={12} md={4} lg={3} xl={3} className="mt-4">
               <div>
                 <i class="fa-solid fa-location-dot"></i>
                 <span className="ms-2">Distance</span>
@@ -110,7 +125,7 @@ function Home() {
                 />
               </div>
             </Col>
-            <Col sm={1} md={3} lg={3} xl={3} className="mt-4">
+            <Col sm={12} md={4} lg={3} xl={3} className="mt-4">
               <div>
                 <i class="fa-solid fa-users"></i>
                 <span className="ms-2">Max People</span>
@@ -124,7 +139,7 @@ function Home() {
                 />
               </div>
             </Col>
-            <Col sm={1} md={3} lg={3} xl={3} className="mt-4">
+            <Col sm={12} md={4} lg={3} xl={3} className="mt-4">
               <div style={{ marginTop: "35px" }} onClick={searchHandler}>
                 <i
                   class="fa-solid fa-magnifying-glass p-2"
@@ -142,12 +157,12 @@ function Home() {
         <section className="mt-5">
           <Container>
             <Row>
-              <Col sm={3} md={3} lg={3} xl={3}>
+              <Col sm={12} md={12} lg={3} xl={3}>
                 <h5 className="service_subtitle">What we serve</h5>
                 <h2 className="service_title">We offer our best services</h2>
               </Col>
               {servicesData.map((service,index) => (
-              <Col lg={3} key={index}>
+              <Col lg={3} xl={3} md={12} sm={12} key={index}>
                 <div className="service_item mb-3">
                 <div className="service_img">
                   <img src={service.imgUrl} alt="image of service" width={service.width} height={service.height}/>
@@ -168,7 +183,7 @@ function Home() {
           <Container>
             <Row>
               <Col lg={12} className='mb-5'>
-              <p className="customerslogan p-1 text-center bg-warning" style={{width:'10%'}}>
+              <p className="customerExploreslogan p-1 text-center bg-warning">
                 Explore
               </p>
                 <h2 className="featured_tour-title">Our Featured Tours</h2>
@@ -183,7 +198,7 @@ function Home() {
             <Row>
               <Col lg={6}>
                 <div className="experience_content">
-                <p className="customerslogan p-1 text-center bg-warning" style={{width:'20%'}}>
+                <p className="customerExperienceslogan p-1 text-center bg-warning">
                 Experience
               </p>
               <h2>With our all experience <br/> we will serve you</h2>
@@ -220,7 +235,7 @@ function Home() {
           <Container>
             <Row>
               <Col lg={12}>
-              <p className="customerslogan p-1 text-center bg-warning" style={{width:'8%'}}>
+              <p className="customerslogans p-1 text-center bg-warning">
                 Gallery
               </p>
               <h2 className='gallery_title'>Visit our customers tour gallery</h2>
@@ -234,9 +249,9 @@ function Home() {
 
         <section>
           <Container>
-            <Row>
+            <Row className='fans-mt'>
               <Col lg={12}>
-              <p className="customerslogan p-1 text-center bg-warning" style={{width:'8%'}}>
+              <p className="customerslogans p-1 text-center bg-warning">
                 Fans love
               </p>
               <h2 className="testimonial_title">What our fans say about us</h2>

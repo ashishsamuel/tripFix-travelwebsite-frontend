@@ -1,34 +1,60 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './Booking.css'
 import { Button, Form, FormGroup, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import {AuthContext} from '../Contexts/AuthContext'
+import {BASE_URL} from '../utils/config.js'
 
 function Booking({tour,avgRating}) {
 
-    const {price,reviews} = tour
+    const {price,reviews, title } = tour
     const navigate = useNavigate()
-    const [credentials,setCredentials] = useState({
-        userId:'1', // later it will be dynamic
-        userEmail:'esample@gmail.com',
+    const {user} = useContext(AuthContext)
+
+    const [booking,setBooking] = useState({
+        userId:user && user._id, 
+        tourId:tour._id,
+        userEmail:user && user.email,
+        tourName:title,
         fullName:'',
         phone:'',
         guestSize:1,
         bookAt:''
     })
     const handleChange = (e)=>{
-        setCredentials(prev=>({...prev,[e.target.id]:e.target.value}))
+        setBooking(prev=>({...prev,[e.target.id]:e.target.value}))
     }
 
     const serviceFee = 10
-    const totalAmount = Number(price) * Number(credentials.guestSize) + Number(serviceFee)
+    const totalAmount = Number(price) * Number(booking.guestSize) + Number(serviceFee)
 
     // send data to the server
-    const handleClick = (e)=>{
+    const handleClick = async(e)=>{
         e.preventDefault()
+        try {
+          if(!user || user===undefined || user ===null){
+            return alert("Please sign in")
+          }
 
-        navigate('/thank-you')
+          const res = await fetch(`${BASE_URL}/booking`,{
+            method:'post',
+            headers:{
+              'content-type':'application/json'
+            },
+            credentials:'include',
+            body:JSON.stringify(booking)
+          })
 
+          const result = await res.json()
 
+          if(!res.ok){
+            return alert(result.message)
+          }
+          navigate('/thank-you')
+
+        } catch (err) {
+          alert(err.message)
+        }
 
     }
 

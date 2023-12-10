@@ -4,26 +4,26 @@ import './Tours.css'
 import { Col, Container, Row } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { tourData } from '../Assets/tours';
 import TourCard from '../shared/TourCard';
 import Newsletter from '../shared/Newsletter'
+import useFetch from '../hooks/useFetch';
+import { BASE_URL } from '../utils/config';
+import { useNavigate } from 'react-router-dom';
+
 
 function Tours() {
 
   const [pageCount,setPageCount] = useState(0)
   const [page,setPage] = useState(0)
-
-  useEffect(()=>{
-    const pages = Math.ceil(5/ 4) //later we will use backend data count
-    setPageCount(pages)
-  },[page])
-
+  const {data:tours, loading, error} = useFetch(`${BASE_URL}/tours?page=${page}`)
+  const {data:tourCount} = useFetch(`${BASE_URL}/tours/search/getTourCount`)
+  const navigate = useNavigate()
   const locationRef = useRef('')
   const distanceRef = useRef(0)
   const maxGroupSizeRef = useRef(0)
 
-  const searchHandler =()=>{
-    const location = locationRef.current.value;
+  const searchHandler =async()=>{
+    const location = locationRef.current.value.replace(/\s/g, "");
     const distance = distanceRef.current.value;
     const maxGroupSize = maxGroupSizeRef.current.value;
 
@@ -31,14 +31,33 @@ function Tours() {
       toast.warning("All fields are required!")
     }
   
+    const res = await fetch(`${BASE_URL}/tours/search/getTourBySearch?city=${location}&distance=${distance}&maxGroupSize=${maxGroupSize}`)
+
+    if(!res.ok){
+      alert("Something went wrong")
+    }
+
+    else{
+      const result = await res.json()
+
+    navigate(`/tours/search?city=
+    ${location}&distance=${distance}&maxGroupSize=${maxGroupSize}`,{state:result.data})
+    }
+  
   }
+
+  useEffect(()=>{
+    const pages = Math.ceil(tourCount/ 8) 
+    setPageCount(pages)
+    window.scrollTo(0,0)
+  },[page,tourCount,tours])
   return (
     <>
       <CommonSection title={"All Tours"}/>
       <section>
         <Container>
           <Row className="mt-5">
-            <Col sm={1} md={3} lg={3} xl={3} className="mt-4">
+            <Col sm={12} md={4} lg={3} xl={3} className="mt-4">
               <div>
                 <i class="fa-solid fa-location-dot"></i>
                 <span className="ms-2">Location</span>
@@ -52,7 +71,7 @@ function Tours() {
                 />
               </div>
             </Col>
-            <Col sm={1} md={3} lg={3} xl={3} className="mt-4">
+            <Col sm={12} md={4} lg={3} xl={3} className="mt-4">
               <div>
                 <i class="fa-solid fa-location-dot"></i>
                 <span className="ms-2">Distance</span>
@@ -66,7 +85,7 @@ function Tours() {
                 />
               </div>
             </Col>
-            <Col sm={1} md={3} lg={3} xl={3} className="mt-4">
+            <Col sm={12} md={4} lg={3} xl={3} className="mt-4">
               <div>
                 <i class="fa-solid fa-users"></i>
                 <span className="ms-2">Max People</span>
@@ -80,7 +99,7 @@ function Tours() {
                 />
               </div>
             </Col>
-            <Col sm={1} md={3} lg={3} xl={3} className="mt-4">
+            <Col sm={12} md={4} lg={3} xl={3} className="mt-4">
               <div style={{ marginTop: "35px" }} onClick={searchHandler}>
                 <i
                   class="fa-solid fa-magnifying-glass p-2"
@@ -103,10 +122,18 @@ function Tours() {
       </section>
       <section>
         <Container>
-          <Row className='mt-4'>
+          {
+          loading && <h4 className='text-center pt-5'>Loading.......</h4>
+          }
+           {
+          error && <h4 className='text-center pt-5'>{error}</h4>
+          }
+          {
+            !loading && !error && 
+            <Row className='mt-4'>
             {
-              tourData?.map((tour)=>(
-                <Col className='mb-4' lg={3} key={tour.id}>
+              tours?.map((tour)=>(
+                <Col className='mb-4' lg={3} key={tour.BASE_URLid}>
                   <TourCard tour={tour}/>
                 </Col>
               ))
@@ -120,6 +147,7 @@ function Tours() {
               </div>
             </Col>
           </Row>
+          }
         </Container>
       </section>
 

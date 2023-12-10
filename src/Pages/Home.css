@@ -4,10 +4,42 @@
     background-position: center;
 }
 
+.tripfixslogan{
+    border: 1px solid white;
+    border-radius: 15px;
+    width: 30%;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .customerslogan{
     border: 1px solid white;
     border-radius: 15px;
     width: 30%;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.customerslogans{
+    border: 1px solid white;
+    border-radius: 15px;
+    width: 10%;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.customerExploreslogan{
+    border: 1px solid white;
+    border-radius: 15px;
+    width: 8%;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.customerExperienceslogan{
+    border: 1px solid white;
+    border-radius: 15px;
+    width: 20%;
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -135,4 +167,75 @@
     font-weight: 600;
     color: saddlebrown;
     
+}
+
+.homepage-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem!important;
+    margin-bottom: 3rem!important;
+}
+
+
+@media only screen and (max-width:992px){
+    .homepage-image{
+        margin-top: 0px!important;
+        margin-bottom: 0px!important;
+    }
+
+    .homepage-image img{
+        width: 350px;
+    }
+
+    .service_title,.featured_tour-title,.gallery_title,.testimonial_title{
+        font-size: 2rem;
+    }
+
+    .customerslogans{
+        width: 15%;
+    }
+
+    .fans-mt{
+        margin-top: 40px !important;
+    }
+
+    .customerExploreslogan{
+        width: 18%;
+    }
+
+    .customerExperienceslogan{
+        width: 25%;
+    }
+
+    .tripfixslogan{
+        width: 40%;
+    }
+    
+}
+
+@media only screen and (max-width:576px){
+    .service_title,.featured_tour-title,.gallery_title,.testimonial_title{
+        font-size: 1.5rem;
+    }
+
+    .customerslogans{
+        width: 15%;
+    }
+
+    .fans-mt{
+        margin-top: 40px !important;
+    }
+
+    .customerExploreslogan{
+        width: 18%;
+    }
+
+    .customerExperienceslogan{
+        width: 35%;
+    }
+
+    .tripfixslogan{
+        width: 40%;
+    }
 }

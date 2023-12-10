@@ -8,7 +8,7 @@ function Layout() {
   return (
     <>
     <Header/>
-    <div style={{marginTop:'65px'}}>
+    <div>
       <Router/>
     </div>
     <Footer/>

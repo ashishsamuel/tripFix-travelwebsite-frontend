@@ -1,21 +1,24 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './tourdetails.css'
 import { Col, Container, Form, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
-import { tourData } from '../Assets/tours'
 import calculateAvgRating from '../utils/avgRating'
 import avatar from '../Assets/customerImages/avatar.jpg'
 import Booking from '../Components/Booking'
 import Newsletter from '../shared/Newsletter'
+import useFetch from '../hooks/useFetch.js'
+import {BASE_URL} from '../utils/config.js'
+import {AuthContext} from '../Contexts/AuthContext.jsx'
 
 
 function TourDetails() {
   const {id} = useParams()
   const reviewMsgRef = useRef('')
   const [tourRating,setTourRating]=useState(null)
+  const {user} = useContext(AuthContext)
 
-  // this is an static data later we will call our API and load our data from database
-  const tour = tourData.find(tour=>tour.id==id)
+  // fetch data from database
+  const {data:tour, loading, error} = useFetch(`${BASE_URL}/tours/${id}`)
 
   // destructure properties from tour object 
   const {photo,title,desc,price,address,reviews,city,distance,maxGroupSize} = tour
@@ -26,20 +29,63 @@ function TourDetails() {
   const options = {day:'numeric',month:'long',year:'numeric'}
 
   // submit request to the server 
-  const submitHandler=(e)=>{
+  const submitHandler=async(e)=>{
     e.preventDefault()
     const reviewText = reviewMsgRef.current.value
+    try {
 
-    // later will call our api 
+      if(!user || user===undefined || user ===null){
+        alert("Please sign in")
+      }
+
+      const reviewObj = {
+        username:user?.username,
+        reviewText,
+        rating:tourRating
+      }
+      const res = await fetch(`${BASE_URL}/review/${id}`,{
+        method:'post',
+        headers:{
+          'content-type':'application/json'
+        },
+        credentials:'include',
+        body:JSON.stringify(reviewObj)
+      })
+
+      const result = await res.json()
+      if(!res.ok){
+        return alert(result.message)
+      }
+
+      alert(result.message)
+
+    } catch (err) {
+        alert(err.message)
+    }
+
   }
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[tour])
   return (
     <>
       <section>
         <Container>
-          <Row>
+          {
+            loading && <h4 className='text-center pt-5'>Loading.........</h4>
+          }
+
+          {
+            error && <h4 className='text-center pt-5'>{error}</h4>
+          }
+
+          {
+            !error && !loading &&
+            <Row>
             <Col lg={8}>
               <div className="tour_content">
-                <img src={photo} alt="image tour" width={'700'} height={'450'}/>
+                <img src={`/${photo}`} alt="image tour" width={'700'} height={'450'}/>
 
                 <div className="tour_info">
                   <h2>{title}</h2>
@@ -94,13 +140,13 @@ function TourDetails() {
                         <div className="w-100">
                           <div className='d-flex align-items-center justify-content-between'>
                             <div>
-                              <h5>Leo Das</h5>
-                              <p>{new Date('01-18-2023').toLocaleDateString("en-US",options)}</p>
+                              <h5>{review.username}</h5>
+                              <p>{new Date(review.createdAt).toLocaleDateString("en-US",options)}</p>
                             </div>
-                            <span className='d-flex align-items-center'>5<i class="fa-solid fa-star text-warning"></i></span>
+                            <span className='d-flex align-items-center'>{review.rating}<i class="fa-solid fa-star text-warning"></i></span>
                           </div>
 
-                          <h6>Amazing tour</h6>
+                          <h6>{review.reviewText}</h6>
                         </div>
                       </div>
                     ))
@@ -114,6 +160,7 @@ function TourDetails() {
               <Booking tour={tour} avgRating={avgRating}/>
             </Col>  
           </Row>
+          }
         </Container>
       </section>
       <Newsletter/>
