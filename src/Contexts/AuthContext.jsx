@@ -1,9 +1,15 @@
 import { createContext, useEffect, useReducer } from "react";
 
-const storedUserData = localStorage.getItem('user');
-const userDet = (storedUserData && storedUserData !== 'undefined')
-  ? JSON.parse(storedUserData)
-  : null;
+let userDet;
+
+try {
+  userDet = (storedUserData && storedUserData !== 'undefined')
+    ? JSON.parse(storedUserData)
+    : null;
+} catch (error) {
+  console.error('Error parsing JSON from localStorage:', error);
+  userDet = null;
+}
 
 const initial_state = {
   user: userDet,
