@@ -3,6 +3,7 @@ import { Nav, Container, Button, Navbar, NavDropdown } from 'react-bootstrap'
 import { Link, useNavigate, NavLink } from 'react-router-dom'
 import './Header.css'
 import {AuthContext} from '../Contexts/AuthContext'
+import {navigateLinkAuthorizationContext} from '../Contexts/NavigateLinkAuth'
 
 const nav_links = [
   {path:'/home',display:'Home'},
@@ -16,7 +17,7 @@ function Header() {
   const headerRef = useRef(null)
   const navigate = useNavigate()
   const {user, dispatch} = useContext(AuthContext)
-  // const {isAuthorized,setIsAuthorized} = useContext(navigateLinkAuthorizationContext)
+  const {isAuthorized,setIsAuthorized} = useContext(navigateLinkAuthorizationContext)
 
 
   const stickyHeaderFunc = ()=>{
@@ -36,8 +37,8 @@ function Header() {
   const logout = ()=>{
     dispatch({type:'LOGOUT'})
     sessionStorage.removeItem("tourData")
-    localStorage.removeItem('user')
-    // setIsAuthorized(false)
+    // localStorage.removeItem('user')
+    setIsAuthorized(false)
     navigate('/')
   }
 

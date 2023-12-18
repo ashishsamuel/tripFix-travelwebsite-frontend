@@ -74,6 +74,7 @@ function UserBookings() {
     <>
       <div className="mt-5">
         <Container>
+          <h3 className='my-4 text-info text-center' style={{textDecoration:'underline'}}>Booking History</h3>
           <Row>
             {userBookingData.length > 0 ? (
               userBookingData.map((bookingdata, index) => (
@@ -108,7 +109,7 @@ function UserBookings() {
                 </Col>
               ))
             ) : (
-              <h5>No Booking Records</h5>
+              <h5 className='my-5 fw-bolder'>No Booking Records</h5>
             )}
           </Row>
         </Container>
